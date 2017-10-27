@@ -1,0 +1,27 @@
+version: '2'
+
+services:
+    node:
+        build: nodejs
+        volumes:
+            - "${NODEJS_APP_PATH}:/var/www/app"
+            - "./logs/nodejs/:/var/log/nodejs"
+        environment:
+            MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+            MYSQL_DATABASE: "${MYSQL_DATABASE}"
+            MYSQL_USER: "${MYSQL_USER}"
+            MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
+            ContainerType: "nodejs"
+        ports:
+            - 8080:8080
+        links:
+            - db
+    db:
+        image: mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+            MYSQL_DATABASE: "${MYSQL_DATABASE}"
+            MYSQL_USER: "${MYSQL_USER}"
+            MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
+        ports:
+            - 3306:3306
