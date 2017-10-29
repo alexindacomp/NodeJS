@@ -4,7 +4,7 @@ services:
     node:
         build: nodejs
         volumes:
-            - "${NODEJS_APP_PATH}:/var/www/app"
+            - "${NODEJS_APP_PATH}/:/var/www/app"
             - "./logs/nodejs/:/var/log/nodejs"
         environment:
             MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
@@ -13,7 +13,7 @@ services:
             MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
             ContainerType: "nodejs"
         ports:
-            - 8080:8080
+            - 80:80
         links:
             - db
     db:
